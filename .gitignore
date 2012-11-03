@@ -9,6 +9,7 @@
 *~
 .idea
 .coverage
+.tox
 
 build
 dist

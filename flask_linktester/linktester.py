@@ -19,7 +19,8 @@ class LinkExtractor(HTMLParser):
 
   def handle_starttag(self, tag, attrs):
     for attr_name, attr_value in attrs:
-      if (tag, attr_name) in [('a', 'href'), ('link', 'href'), ('script', 'src'), ('img', 'src')]:
+      if (tag, attr_name) in [('a', 'href'), ('link', 'href'),
+                              ('script', 'src'), ('img', 'src')]:
         url = attr_value
         scheme = urlparse.urlparse(url).scheme
         if scheme != '':

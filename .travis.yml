@@ -7,15 +7,11 @@ env:
   - FLASK=dev
   - FLASK=0.9
   - FLASK=0.8.1
-  - FLASK=0.7.2
-  - FLASK=0.6.1
-  - FLASK=0.5.2
 install:
   - pip install flask==$FLASK coverage pep8 --use-mirrors
   - pip install -e . --use-mirrors
 script:
   - python setup.py test
-  - pep8 -r --ignore E111,E225,E501,E127 *.py flask_linktester tests
 notifications:
   email:
     - sf@fermigier.com
