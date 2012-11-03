@@ -24,6 +24,29 @@ classifiers = [
   'Topic :: Software Development :: Libraries :: Python Modules'
 ]
 
+
+def get_long_description():
+  """
+  Hack to provide a ``.rst`` description to PyPI even when the ``README`` is
+  actually written using Markdown.
+  """
+
+  import os
+
+  if os.path.exists("README.rst"):
+    return open("README.rst").read()
+  elif os.path.exists("README.md"):
+    rst = os.popen("pandoc -r markdown -w rst -o - README.md").read()
+    if rst:
+      return rst
+    else:
+      return open("README.md").read()
+  elif os.path.exists("README.txt"):
+    return open("README.txt").read()
+  else:
+    return None
+
+
 setup(
   name='Flask-LinkTester',
   version='0.1',

@@ -2,7 +2,6 @@ language: python
 python:
   - "2.7"
   - "2.6"
-  - "2.5"
 env:
   - FLASK=dev
   - FLASK=0.9
