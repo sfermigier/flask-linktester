@@ -11,10 +11,11 @@ env:
   - FLASK=0.6.1
   - FLASK=0.5.2
 install:
-  - pip install flask==$FLASK coverage --use-mirrors
+  - pip install flask==$FLASK coverage pep8 --use-mirrors
   - pip install -e . --use-mirrors
 script:
   - python setup.py test
+  - pep8 -r --ignore E111,E225,E501,E127 *.py flask_linktester tests
 notifications:
   email:
     - sf@fermigier.com
