@@ -1,8 +1,8 @@
-.PHONY: test tox pep8 clean
+.PHONY: test tox pep8 clean tidy doc install
 
 SRC=flask_linktester
 
-all: test pep8
+all: test pep8 doc
 
 #
 # testing
@@ -24,6 +24,9 @@ tox:
 #
 install:
 	pip install -I --no-deps .
+
+doc:
+	cd docs ; make html
 
 #
 # Everything else

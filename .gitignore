@@ -1,0 +1,16 @@
+*.egg-info
+*.pyc
+*.db
+*.swp
+*.swo
+*.zip
+*.egg
+*.orig
+*~
+.idea
+.coverage
+
+build
+dist
+docs/output/
+docs/_build/

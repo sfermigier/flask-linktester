@@ -34,7 +34,7 @@ exclude_patterns = ['_build']
 html_theme = 'flask_small'
 
 html_theme_options = {
-     'index_logo': 'flask-testing.png',
+     #'index_logo': 'flask-testing.png', # TODO
      'github_fork': 'sfermigier/flask-linktester'
 }
 

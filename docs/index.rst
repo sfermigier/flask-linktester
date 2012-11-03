@@ -1,10 +1,8 @@
 Flask-LinkTester
 ****************
 
-.. module:: flask_linktester
-
-The **Flask-LinkTester** extension provides unit testing utilities for
-`Flask`_.
+The **Flask-LinkTester** extension helps test there are no invalid links on a
+`Flask`_ application.
 
 Installing Flask-LinkTester
 ===========================
@@ -25,7 +23,21 @@ If you are using **virtualenv**, it is assumed that you are installing
 Writing tests
 =============
 
-TODO
+Here's how you would write your tests::
+
+    class TestLinkTester(TestCase):
+
+        def create_app(self):
+            ...
+
+        def test_links_from_home(self):
+          crawler = LinkTester(self.client, "/")
+          crawler.crawl()
+
+If, for some reason, you know some of your links will fail but you want to run
+the tests anyway, you can blacklist some links by adding::
+
+          crawler.black_list |= ['/bad', '/another/bad/*']
 
 
 Running tests
@@ -34,23 +46,9 @@ Running tests
 with unittest
 -------------
 
-For the beginning I go on the theory that you put all your tests into one file
-than you can use the :func:`unittest.main` function. This function will
-discover all your test methods in your :class:`TestCase` classes. Remember, the
-test methods and classes must starts with ``test`` (case-insensitive) that they
-will discover.
+You can run the tests with the following command::
 
-An example test file cloud look like this::
-
-    import unittest
-    import flask.ext.testing
-
-    # your test cases
-
-    if __name__ == '__main__':
-        unittest.main()
-
-Now you can run your tests with ``python tests.py``.
+    python -m unittest discover -s tests
 
 with nose
 ---------
@@ -62,7 +60,7 @@ Changes
 
 * **0.1 (2012/11/03)**
 
-  * Extracted and refactored from the Abilian project.
+  * Extracted and refactored from the `Abilian`_ project.
 
 
 API
@@ -73,5 +71,6 @@ API
 .. autoclass:: LinkTester
    :members:
 
-.. _Flask: http://flask.pocoo.org
+.. _Flask: http://flask.pocoo.org/
 .. _nose: http://nose.readthedocs.org/en/latest/
+.. _Abilian: http://www.abilian.com/

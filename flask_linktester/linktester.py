@@ -66,7 +66,7 @@ class LinkTester(object):
 
       status_code = response.status_code
       assert status_code in self.allowed_codes,\
-      "Response from URL %s was %s" % (link, response.status_code)
+        "Response from URL %s was %s" % (link, response.status_code)
 
       if self.verbosity >= 2:
         print "  Got content-type:", response.content_type
