@@ -1,8 +1,8 @@
-.PHONY: test tox pep8 clean tidy doc install
+.PHONY: test check tox pep8 clean tidy doc install
 
 SRC=flask_linktester
 
-all: test pep8 doc
+all: test pep8 doc check
 
 #
 # testing
@@ -19,6 +19,12 @@ test-with-profile:
 tox:
 	tox
 
+pep8:
+	pep8 -r --ignore E111,E121,E225,E501,E127 *.py $(SRC) tests
+
+check:
+	travis-lint .travis.yml
+
 #
 # Install
 #
@@ -31,9 +37,6 @@ doc:
 #
 # Everything else
 #
-pep8:
-	pep8 -r --ignore E111,E225,E501,E127 *.py $(SRC) tests
-
 clean:
 	find . -name "*.pyc" | xargs rm -f
 	find . -name .DS_Store | xargs rm -f
