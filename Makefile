@@ -29,10 +29,10 @@ check:
 # Install
 #
 install:
-	pip install -I --no-deps .
+	pip install --no-deps .
 
 doc:
-	cd docs ; make html
+	python setup.py build_sphinx
 
 #
 # Everything else

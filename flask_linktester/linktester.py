@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Test the application by clicking on all the links.
+Test a Flask application by following on all the links.
 
-Some links are blacklisted due to side effects.
+Some links may be blacklisted to avoid side effects.
 """
 
 from HTMLParser import HTMLParser
@@ -60,7 +60,11 @@ class LinkTester(object):
       if self.verbosity >= 1:
         print "Crawling URL:", link
 
-      response = self.client.get(link)
+      try:
+        response = self.client.get(link)
+      except:
+        print "Error fetching URL:", link
+        raise
 
       if self.verbosity >= 2:
         print "  Got response:", response
