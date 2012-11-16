@@ -33,27 +33,18 @@ class LinkTester(object):
 
   _black_list = set(["/logout"])
 
-  def __init__(self, client, root):
+  def __init__(self, client):
     self.client = client
     self.link_map = {}
-    self.to_visit = set([root])
+    self.to_visit = set()
     self.black_list = self._black_list.copy()
     self.visited = set()
     self.allowed_codes = set([200, 301])
     self.verbosity = 0
     self.max_links = 100
 
-  def blacklisted(self, url):
-    for path in self.black_list:
-      if path.endswith("*"):
-        if url.startswith(path[0:-1]):
-          return True
-      else:
-        if url == path:
-          return True
-    return False
-
-  def crawl(self):
+  def crawl(self, root):
+    self.to_visit = set([root])
     while self.to_visit and len(self.visited) <= self.max_links:
       url = self.to_visit.pop()
       if url in self.visited:
@@ -77,6 +68,7 @@ class LinkTester(object):
 
       if self.verbosity >= 2:
         print "  Got content-type:", response.content_type
+      if self.verbosity >= 3:
         print "  Got body:", response.data
 
       if not response.content_type.startswith('text/html'):
@@ -97,6 +89,18 @@ class LinkTester(object):
         if new_link not in self.visited:
           self.add_link(url, new_link)
 
+  def blacklisted(self, url):
+    for path in self.black_list:
+      if path.endswith("*"):
+        if url.startswith(path[0:-1]):
+          return True
+      else:
+        if url == path:
+          return True
+    return False
+
   def add_link(self, current_url, link):
+    if self.verbosity >= 1:
+      print "Adding new link:", link, "from page:", current_url
     self.to_visit.add(link)
     self.link_map.setdefault(current_url, set()).add(link)
