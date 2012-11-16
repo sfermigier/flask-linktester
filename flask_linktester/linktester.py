@@ -41,6 +41,7 @@ class LinkTester(object):
     self.visited = set()
     self.allowed_codes = set([200, 301])
     self.verbosity = 0
+    self.max_links = 100
 
   def blacklisted(self, url):
     for path in self.black_list:
@@ -53,9 +54,9 @@ class LinkTester(object):
     return False
 
   def crawl(self):
-    while self.to_visit:
+    while self.to_visit and len(self.visited) <= self.max_links:
       url = self.to_visit.pop()
-      if not url or url in self.visited:
+      if url in self.visited:
         continue
 
       if self.verbosity >= 1:
