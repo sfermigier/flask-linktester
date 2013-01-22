@@ -77,9 +77,13 @@ class LinkTester(object):
       if not response.content_type.startswith('text/html'):
         continue
 
+      charset = (response.content_type.rsplit('=', 1)[1]
+                 if 'charset=' in response.content_type
+                 else 'ISO-8859-1')
+
       self.visited.add(url)
       parser = LinkExtractor()
-      parser.feed(response.data)
+      parser.feed(response.data.decode(charset))
 
       if self.verbosity >= 2:
         print "  Found links:", parser.links

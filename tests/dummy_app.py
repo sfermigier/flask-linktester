@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, make_response
 
 
@@ -20,6 +21,16 @@ KO_PAGE = """<html>
 </body>
 </html>"""
 
+UTF8_AND_ENTITIES_PAGE = """
+<html>
+<body>
+
+<input type="text" name="test_utf_8_with_entities"
+                   value="printemps &amp; été" />
+
+</body>
+</html>"""
+
 
 def create_app():
 
@@ -28,6 +39,10 @@ def create_app():
   @app.route("/ok")
   def ok():
     return OK_PAGE
+
+  @app.route("/utf8_and_entities")
+  def utf8_and_entities():
+    return UTF8_AND_ENTITIES_PAGE
 
   @app.route("/ko")
   def ko():

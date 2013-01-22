@@ -31,6 +31,12 @@ class TestLinkTester(BaseTestCase):
     except AssertionError:
       pass
 
+  def test_utf8_and_entities(self):
+    """ Ensure parser don't crash when parsing attributes with non-ascii
+    characters + html entities
+    """
+    self.crawler.crawl("/utf8_and_entities")
+
 
 class VerboseLinkTester(BaseTestCase):
 
