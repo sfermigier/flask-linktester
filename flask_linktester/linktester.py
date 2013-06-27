@@ -8,13 +8,13 @@ Some links may be blacklisted to avoid side effects.
 from HTMLParser import HTMLParser
 import urlparse
 from fnmatch import fnmatch
+import requests
 
 
 __all__ = ['LinkTester']
 
 
-class LinkExtractor(HTMLParser):
-
+class LinkExtractor(object, HTMLParser):
   def __init__(self):
     HTMLParser.__init__(self)
     self.links = set()
@@ -32,18 +32,16 @@ class LinkExtractor(HTMLParser):
 
 
 class LinkTester(object):
-
-  _black_list = set(["/logout"])
-
-  def __init__(self, client):
+  def __init__(self, client, black_list=(), verbosity=0, max_links=100):
     self.client = client
+    self.black_list = set(item for item in black_list)
     self.link_map = {}
     self.to_visit = set()
-    self.black_list = self._black_list.copy()
     self.visited = set()
     self.allowed_codes = set([200, 301])
-    self.verbosity = 0
-    self.max_links = 100
+    self.verbosity = verbosity
+    self.max_links = max_links
+    self.validator_url = None
 
   def crawl(self, root):
     self.to_visit = set([root])
@@ -66,7 +64,7 @@ class LinkTester(object):
         print "  Got response:", response
 
       status_code = response.status_code
-      assert status_code in self.allowed_codes,\
+      assert status_code in self.allowed_codes, \
         "Response from URL %s was %s" % (url, response.status_code)
 
       if self.verbosity >= 2:
@@ -77,10 +75,12 @@ class LinkTester(object):
       if not response.content_type.startswith('text/html'):
         continue
 
+      if self.validator_url and status_code == 200:
+        self.validate(url, response)
+
       charset = (response.content_type.rsplit('=', 1)[1]
                  if 'charset=' in response.content_type
                  else 'ISO-8859-1')
-
       self.visited.add(url)
       parser = LinkExtractor()
       parser.feed(response.data.decode(charset))
@@ -109,3 +109,30 @@ class LinkTester(object):
         print "Adding new link:", link, "from page:", current_url
 
     self.link_map.setdefault(current_url, set()).add(link)
+
+  def validate(self, url, response):
+    content = response.data
+    content_type = response.content_type
+    response = requests.post(self.validator_url + '?out=json', content,
+                             headers={'Content-Type': content_type})
+
+    body = response.json()
+
+    for message in body['messages']:
+      if message['type'] == 'error':
+        detail = u'on line %s [%s]\n%s' % (
+          message['lastLine'],
+          message['extract'],
+          message['message'])
+        raise ValidationError(url, detail)
+
+
+class ValidationError(Exception):
+  def __init__(self, url, detail):
+    self.url = url
+    self.detail = detail
+
+  def __str__(self):
+    return (u'Got a validation error for %r:\n%s' %
+            (self.url, self.detail)).encode('utf-8')
+
