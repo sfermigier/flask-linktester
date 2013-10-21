@@ -7,10 +7,14 @@ TODO.
 
 from setuptools import setup
 
-
-tests_require = [
+requirements = [
   'Flask',
+  'requests',
+]
+tests_requirements = [
   'Flask-Testing',
+  'pep8',
+  'travis-solo',
 ]
 
 classifiers = [
@@ -60,6 +64,7 @@ setup(
   test_suite="tests.suite",
   zip_safe=False,
   platforms='any',
-  tests_require=tests_require,
+  install_requires=requirements,
+  tests_require=tests_requirements,
   classifiers=classifiers,
 )

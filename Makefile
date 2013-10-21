@@ -8,7 +8,7 @@ all: test pep8 doc check
 # testing
 #
 test:
-	python -m unittest discover -s tests
+	nosetests tests
 
 test-with-coverage:
 	nosetests --with-coverage --cover-erase --cover-package=$(SRC) tests
@@ -22,8 +22,8 @@ tox:
 pep8:
 	pep8 -r --ignore E111,E121,E225,E501,E127 *.py $(SRC) tests
 
-check:
-	travis-lint .travis.yml
+travis:
+	travis-solo
 
 #
 # Install
@@ -32,7 +32,7 @@ install:
 	pip install --no-deps .
 
 doc:
-	python setup.py build_sphinx
+	sphinx-build -W -b html docs/ docs/_build/html
 
 #
 # Everything else
@@ -45,4 +45,5 @@ clean:
 
 tidy: clean
 	rm -rf .tox
+	rm -rf .travis-solo
 

@@ -135,4 +135,3 @@ class ValidationError(Exception):
   def __str__(self):
     return (u'Got a validation error for %r:\n%s' %
             (self.url, self.detail)).encode('utf-8')
-

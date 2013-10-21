@@ -10,6 +10,7 @@
 .idea
 .coverage
 .tox
+.travis-solo
 
 build
 dist
