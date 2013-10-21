@@ -1,4 +1,4 @@
-include LICENSE 
+include LICENSE version.py README.md
 recursive-include tests *
 recursive-exclude tests *.pyc
 recursive-exclude tests *.pyo

@@ -10,7 +10,7 @@ sys.path.insert(
 sys.path.append(os.path.abspath('_themes'))
 
 # Reused
-from flask_linktester.version import __version__ as VERSION
+from version import VERSION
 NAME = "Flask-LinkTester"
 YEAR = "2012-2013"
 AUTHOR = "Stefane Fermigier"

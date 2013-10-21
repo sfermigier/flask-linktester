@@ -5,20 +5,23 @@ Flask-LinkTester
 TODO.
 """
 
+import os
 from setuptools import setup
-from flask_linktester.version import __version__
+from version import VERSION
 
-requirements = [
+
+REQUIREMENTS = [
   'Flask',
   'requests',
 ]
-tests_requirements = [
+
+TESTS_REQUIREMENTS = REQUIREMENTS + [
   'Flask-Testing',
   'pep8',
   'travis-solo',
 ]
 
-classifiers = [
+CLASSIFIERS = [
   'Development Status :: 3 - Alpha',
   'Environment :: Web Environment',
   'Intended Audience :: Developers',
@@ -36,8 +39,6 @@ def get_long_description():
   actually written using Markdown.
   """
 
-  import os
-
   if os.path.exists("README.rst"):
     return open("README.rst").read()
   elif os.path.exists("README.md"):
@@ -54,18 +55,18 @@ def get_long_description():
 
 setup(
   name='Flask-LinkTester',
-  version=__version__,
+  version=VERSION,
   url='http://github.com/sfermigier/flask-linktester',
   license='BSD',
   author='Stefane Fermigier',
   author_email='sf@fermigier.com',
   description='Link tester for Flask applications',
-  long_description=__doc__,
+  long_description=get_long_description(),
   packages=['flask_linktester'],
   test_suite="tests.suite",
   zip_safe=False,
   platforms='any',
-  install_requires=requirements,
-  tests_require=tests_requirements,
-  classifiers=classifiers,
+  install_requires=REQUIREMENTS,
+  tests_require=TESTS_REQUIREMENTS,
+  classifiers=CLASSIFIERS,
 )
