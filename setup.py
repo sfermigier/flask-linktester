@@ -6,6 +6,7 @@ TODO.
 """
 
 from setuptools import setup
+from flask_linktester.version import __version__
 
 requirements = [
   'Flask',
@@ -53,7 +54,7 @@ def get_long_description():
 
 setup(
   name='Flask-LinkTester',
-  version='0.1',
+  version=__version__,
   url='http://github.com/sfermigier/flask-linktester',
   license='BSD',
   author='Stefane Fermigier',

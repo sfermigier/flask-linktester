@@ -44,6 +44,8 @@ class LinkTester(object):
     self.validator_url = None
 
   def crawl(self, root):
+    """Crawl the application starting from `root`.
+    """
     self.to_visit = set([root])
 
     while self.to_visit and len(self.visited) <= self.max_links:

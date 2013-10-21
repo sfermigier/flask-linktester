@@ -102,11 +102,10 @@ div.body h6 {
     padding: 0;
 }
 
-{% if theme_index_logo %}
+{% if theme_index_logo_height %}
 div.indexwrapper h1 {
-    text-indent: -999999px;
-    background: url({{ theme_index_logo }}) no-repeat center center;
     height: {{ theme_index_logo_height }};
+    font-size: 48px;
 }
 {% endif %}
  

@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath('_themes'))
 # Reused
 from flask_linktester.version import __version__ as VERSION
 NAME = "Flask-LinkTester"
-YEAR = 2012
+YEAR = "2012-2013"
 AUTHOR = "Stefane Fermigier"
 
 
@@ -32,14 +32,13 @@ release = VERSION
 exclude_patterns = ['_build']
 
 html_theme = 'flask_small'
-
+html_theme_path = ['_themes']
+html_static_path = ['_static']
 html_theme_options = {
      #'index_logo': 'flask-testing.png', # TODO
      'github_fork': 'sfermigier/flask-linktester'
 }
 
-html_theme_path = ['_themes']
-html_static_path = ['_static']
 htmlhelp_basename = 'flask-linktesterdoc'
 
 # -- Options for LaTeX output --------------------------------------------------
