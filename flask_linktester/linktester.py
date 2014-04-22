@@ -92,8 +92,8 @@ class LinkTester(object):
 
       for new_link in parser.links:
         if new_link.startswith("//"):
-          scheme = urlparse.urlparse(url).scheme
-          new_link = scheme + ':' + new_link[1:]
+          # TODO
+          continue
         if not new_link.startswith("/"):
           new_link = urlparse.urljoin(url, new_link)
         if self.blacklisted(new_link):
