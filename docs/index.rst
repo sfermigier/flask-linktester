@@ -50,6 +50,10 @@ the tests anyway, you can blacklist some links by adding::
 Changes
 -------
 
+* **0.2.3 (2014/04/22)**
+
+  * Don't track urls starting with '//'.
+
 * **0.2 (2013/10/21)**
 
   * Small cleanups + first release on PyPi.

@@ -17,7 +17,7 @@ class TestPep8(TestCase):
 
     for root, dirs, files in os.walk(root_dir):
       for dir in dirs[:]:
-        if dir.startswith(".") or dir.endswith(".egg"):
+        if dir.startswith(".") or dir == 'env' or dir.endswith(".egg"):
           dirs.remove(dir)
           continue
         for black_listed in self.black_list:

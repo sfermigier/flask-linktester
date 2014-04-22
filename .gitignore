@@ -12,6 +12,7 @@
 .tox
 .travis-solo
 
+env
 build
 dist
 docs/output/

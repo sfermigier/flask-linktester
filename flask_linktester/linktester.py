@@ -99,6 +99,8 @@ class LinkTester(object):
           self.add_link(url, new_link)
 
   def blacklisted(self, url):
+    if url.startswith("//"):
+      return False
     for path in self.black_list:
       if fnmatch(url, path):
         return True
