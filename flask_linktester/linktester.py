@@ -91,6 +91,9 @@ class LinkTester(object):
         print "  Found links:", parser.links
 
       for new_link in parser.links:
+        if new_link.startswith("//"):
+          scheme = urlparse.urlparse(url).scheme
+          new_link = scheme + ':' + new_link[1:]
         if not new_link.startswith("/"):
           new_link = urlparse.urljoin(url, new_link)
         if self.blacklisted(new_link):
@@ -99,8 +102,6 @@ class LinkTester(object):
           self.add_link(url, new_link)
 
   def blacklisted(self, url):
-    if url.startswith("//"):
-      return False
     for path in self.black_list:
       if fnmatch(url, path):
         return True
