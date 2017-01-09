@@ -9,11 +9,12 @@ env:
   - FLASK=0.9
   - FLASK=0.8.1
 install:
-  - pip install flask==$FLASK Flask-Testing coverage pep8 sphinx
-  - pip install -e . --use-mirrors
+  - pip install flask==$FLASK Flask-Testing flake8 sphinx
+  - pip install -e .
 script:
   - python setup.py test
   - cd docs; sphinx-build -W -b html -d _build/doctrees . _build/html
+  - make lint
 notifications:
   email:
     - sf@fermigier.com
