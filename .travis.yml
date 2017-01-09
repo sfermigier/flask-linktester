@@ -11,6 +11,7 @@ env:
   - FLASK=0.10.1
 
 install:
+  - pip install -U pip setuptools
   - pip install -e .[test]
   - pip install flask==$FLASK
 
