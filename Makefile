@@ -1,5 +1,6 @@
 .PHONY: test check tox lint clean tidy doc install upload
 
+
 SRC=flask_linktester
 
 all: test lint doc check
@@ -8,22 +9,28 @@ all: test lint doc check
 # testing
 #
 test:
-	nosetests tests
+	pytest tests
 
 test-with-coverage:
-	nosetests --with-coverage --cover-erase --cover-package=$(SRC) tests
+	pytest --with-coverage --cover-erase --cover-package=$(SRC) tests
 
 test-with-profile:
-	nosetests --with-profile tests
+	pytest --with-profile tests
 
 tox:
 	tox
 
 lint:
-	flake8 $(SRC) tests
+	flake8 $(SRC) tests *.py
+	pylint --py3k $(SRC) tests *.py
 
 travis:
 	travis-solo
+
+format:
+	isort -rc *.py $(SRC) tests
+	yapf --style google -r -i *.py $(SRC) tests
+	isort -rc *.py $(SRC) tests
 
 #
 # Install
@@ -42,6 +49,7 @@ clean:
 	find . -name .DS_Store | xargs rm -f
 	rm -rf *.egg-info *.egg .coverage
 	rm -rf doc/_build build dist
+	rm -rf __pycache__
 
 tidy: clean
 	rm -rf .tox

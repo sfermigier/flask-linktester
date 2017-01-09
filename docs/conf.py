@@ -10,9 +10,9 @@ sys.path.insert(
 sys.path.append(os.path.abspath('_themes'))
 
 # Reused
-from version import VERSION
+from setup import VERSION
 NAME = "Flask-LinkTester"
-YEAR = "2012-2013"
+YEAR = "2012-2017"
 AUTHOR = "Stefane Fermigier"
 
 
@@ -44,7 +44,9 @@ htmlhelp_basename = 'flask-linktesterdoc'
 # -- Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
-latex_paper_size = 'a4'
+latex_elements = {
+    'papersize': 'a4',
+}
 
 # The font size ('10pt', '11pt' or '12pt').
 #latex_font_size = '10pt'

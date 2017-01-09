@@ -1,10 +1,14 @@
-from flask_linktester import LinkTester
+from __future__ import absolute_import
+
 from flask_testing import TestCase
 
-from dummy_app import create_app
+from flask_linktester import LinkTester
+
+from .dummy_app import create_app
 
 
 class BaseTestCase(TestCase):
+
     def create_app(self):
         return create_app()
 
@@ -15,6 +19,7 @@ class BaseTestCase(TestCase):
 
 
 class TestLinkTester(BaseTestCase):
+
     def test_ok(self):
         self.crawler.crawl("/ok")
 
@@ -33,6 +38,7 @@ class TestLinkTester(BaseTestCase):
 
 
 class VerboseLinkTester(BaseTestCase):
+
     def test_ok(self):
         self.crawler.verbosity = 3
         self.crawler.crawl("/ok")

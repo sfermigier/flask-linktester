@@ -1,5 +1,8 @@
+from __future__ import absolute_import
+
 import unittest
-from tests.test_linktester import TestLinkTester
+
+from .test_linktester import TestLinkTester
 
 
 def suite():

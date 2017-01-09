@@ -1,9 +1,12 @@
-# Flask-LinkTester
+Flask-LinkTester
+================
 
-Check links for you Flask app during integration tests, when using
+Check links for your Flask app during integration tests, when using
 Flask-Testing.
 
 Sample code:
+
+::
 
     class TestLinkTester(TestCase):
 
@@ -13,7 +16,6 @@ Sample code:
         def test_links_from_home(self):
           crawler = LinkTester(self.client, "/")
           crawler.crawl()
-
 
 For full information please refer to the online docs:
 

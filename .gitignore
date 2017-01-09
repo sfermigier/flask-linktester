@@ -11,6 +11,7 @@
 .coverage
 .tox
 .travis-solo
+.cache
 
 env
 build

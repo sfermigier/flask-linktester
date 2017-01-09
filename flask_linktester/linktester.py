@@ -4,16 +4,19 @@ Test a Flask application by following on all the links.
 
 Some links may be blacklisted to avoid side effects.
 """
+from __future__ import absolute_import, print_function
 
-from HTMLParser import HTMLParser
 import urlparse
 from fnmatch import fnmatch
+from HTMLParser import HTMLParser
+
 import requests
 
 __all__ = ['LinkTester']
 
 
 class LinkExtractor(object, HTMLParser):
+
     def __init__(self):
         HTMLParser.__init__(self)
         self.links = set()
@@ -31,6 +34,7 @@ class LinkExtractor(object, HTMLParser):
 
 
 class LinkTester(object):
+
     def __init__(self, client, black_list=(), verbosity=0, max_links=100):
         self.client = client
         self.black_list = set(item for item in black_list)
@@ -53,25 +57,25 @@ class LinkTester(object):
                 continue
 
             if self.verbosity >= 1:
-                print "Crawling URL:", url
+                print("Crawling URL:", url)
 
             try:
                 response = self.client.get(url)
             except:
-                print "Error fetching URL:", url
+                print("Error fetching URL:", url)
                 raise
 
             if self.verbosity >= 2:
-                print "  Got response:", response
+                print("  Got response:", response)
 
             status_code = response.status_code
             assert status_code in self.allowed_codes, \
                 "Response from URL %s was %s" % (url, response.status_code)
 
             if self.verbosity >= 2:
-                print "  Got content-type:", response.content_type
+                print("  Got content-type:", response.content_type)
             if self.verbosity >= 3:
-                print "  Got body:", response.data
+                print("  Got body:", response.data)
 
             if not response.content_type.startswith('text/html'):
                 continue
@@ -80,14 +84,13 @@ class LinkTester(object):
                 self.validate(url, response)
 
             charset = (response.content_type.rsplit('=', 1)[1]
-                       if 'charset=' in response.content_type
-                       else 'ISO-8859-1')
+                       if 'charset=' in response.content_type else 'ISO-8859-1')
             self.visited.add(url)
             parser = LinkExtractor()
             parser.feed(response.data.decode(charset))
 
             if self.verbosity >= 2:
-                print "  Found links:", parser.links
+                print("  Found links:", parser.links)
 
             for new_link in parser.links:
                 if new_link.startswith("//"):
@@ -110,28 +113,29 @@ class LinkTester(object):
         if link not in self.to_visit:
             self.to_visit.add(link)
             if self.verbosity >= 1:
-                print "Adding new link:", link, "from page:", current_url
+                print("Adding new link:", link, "from page:", current_url)
 
         self.link_map.setdefault(current_url, set()).add(link)
 
     def validate(self, url, response):
         content = response.data
         content_type = response.content_type
-        response = requests.post(self.validator_url + '?out=json', content,
-                                 headers={'Content-Type': content_type})
+        response = requests.post(
+            self.validator_url + '?out=json',
+            content,
+            headers={'Content-Type': content_type})
 
         body = response.json()
 
         for message in body['messages']:
             if message['type'] == 'error':
                 detail = u'on line %s [%s]\n%s' % (
-                    message['lastLine'],
-                    message['extract'],
-                    message['message'])
+                    message['lastLine'], message['extract'], message['message'])
                 raise ValidationError(url, detail)
 
 
 class ValidationError(Exception):
+
     def __init__(self, url, detail):
         self.url = url
         self.detail = detail
