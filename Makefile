@@ -1,9 +1,9 @@
-.PHONY: test check tox lint clean tidy doc install upload
+.PHONY: test tox lint clean tidy doc install upload
 
 
 SRC=flask_linktester
 
-all: test lint doc check
+all: test lint doc
 
 #
 # testing
@@ -17,20 +17,14 @@ test-with-coverage:
 test-with-profile:
 	pytest --with-profile tests
 
-tox:
-	tox
-
 lint:
 	flake8 $(SRC) tests *.py
 	pylint --py3k $(SRC) tests *.py
 
-travis:
-	travis-solo
-
 format:
-	isort -rc *.py $(SRC) tests
+	isort -rc *.py $(SRC) tests *.py
 	yapf --style google -r -i *.py $(SRC) tests
-	isort -rc *.py $(SRC) tests
+	isort -rc *.py $(SRC) tests *.py
 
 #
 # Install

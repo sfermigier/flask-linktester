@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import sys, os
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -23,7 +25,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 
-project = unicode(NAME)
+project = NAME
 copyright = u"%s, %s" % (YEAR, AUTHOR)
 
 version = VERSION

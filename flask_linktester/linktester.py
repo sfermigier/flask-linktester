@@ -6,16 +6,22 @@ Some links may be blacklisted to avoid side effects.
 """
 from __future__ import absolute_import, print_function
 
-import urlparse
 from fnmatch import fnmatch
-from HTMLParser import HTMLParser
 
 import requests
+from werkzeug._compat import PY2
+
+if PY2:
+    from urlparse import urlparse, urldefrag, urljoin
+    from HTMLParser import HTMLParser
+else:
+    from urllib.parse import urlparse, urldefrag, urljoin
+    from html.parser import HTMLParser
 
 __all__ = ['LinkTester']
 
 
-class LinkExtractor(object, HTMLParser):
+class LinkExtractor(HTMLParser, object):
 
     def __init__(self):
         HTMLParser.__init__(self)
@@ -26,10 +32,10 @@ class LinkExtractor(object, HTMLParser):
             if (tag, attr_name) in [('a', 'href'), ('link', 'href'),
                                     ('script', 'src'), ('img', 'src')]:
                 url = attr_value
-                scheme = urlparse.urlparse(url).scheme
+                scheme = urlparse(url).scheme
                 if scheme != '':
                     continue
-                link = urlparse.urldefrag(url)[0]
+                link = urldefrag(url)[0]
                 self.links.add(link)
 
 
@@ -97,7 +103,7 @@ class LinkTester(object):
                     # TODO
                     continue
                 if not new_link.startswith("/"):
-                    new_link = urlparse.urljoin(url, new_link)
+                    new_link = urljoin(url, new_link)
                 if self.blacklisted(new_link):
                     continue
                 if new_link not in self.visited:

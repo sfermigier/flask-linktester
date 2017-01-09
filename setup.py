@@ -16,7 +16,11 @@ REQUIREMENTS = [
 ]
 
 TESTS_REQUIREMENTS = REQUIREMENTS + [
-    'Flask-Testing', 'flake8', 'pylint', 'sphinx',
+    'pytest',
+    'Flask-Testing',
+    'flake8',
+    'pylint',
+    'sphinx',
 ]
 
 CLASSIFIERS = [
@@ -46,5 +50,5 @@ if __name__ == '__main__':
         zip_safe=False,
         platforms='any',
         install_requires=REQUIREMENTS,
-        tests_require=TESTS_REQUIREMENTS,
+        extras_require={'testing': TESTS_REQUIREMENTS,},
         classifiers=CLASSIFIERS,)

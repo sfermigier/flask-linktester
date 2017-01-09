@@ -12,7 +12,7 @@ env:
 
 install:
   - pip install -U pip setuptools
-  - pip install -e .[test]
+  - pip install -e .[testing]
   - pip install flask==$FLASK
   - pip --version && pip freeze
 
