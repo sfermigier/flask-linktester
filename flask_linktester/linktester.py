@@ -107,7 +107,7 @@ class LinkTester(object):
         return False
 
     def add_link(self, current_url, link):
-        if not link in self.to_visit:
+        if link not in self.to_visit:
             self.to_visit.add(link)
             if self.verbosity >= 1:
                 print "Adding new link:", link, "from page:", current_url

@@ -1,1 +1,1 @@
-from .linktester import LinkTester
+from .linktester import LinkTester  # noqa
