@@ -1,8 +1,8 @@
-.PHONY: test check tox pep8 clean tidy doc install upload
+.PHONY: test check tox lint clean tidy doc install upload
 
 SRC=flask_linktester
 
-all: test pep8 doc check
+all: test lint doc check
 
 #
 # testing
@@ -19,8 +19,8 @@ test-with-profile:
 tox:
 	tox
 
-pep8:
-	pep8 -r --ignore E111,E121,E225,E501,E127 *.py $(SRC) tests
+lint:
+	flake8 $(SRC) tests
 
 travis:
 	travis-solo

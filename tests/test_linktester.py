@@ -1,10 +1,5 @@
-# Workaround a PyCharm bug
-import sys
-
-sys.path = [".."] + sys.path
-
-from flask.ext.linktester import LinkTester
-from flask.ext.testing import TestCase
+from flask_linktester import LinkTester
+from flask_testing import TestCase
 
 from dummy_app import create_app
 
@@ -31,8 +26,8 @@ class TestLinkTester(BaseTestCase):
             pass
 
     def test_utf8_and_entities(self):
-        """ Ensure parser don't crash when parsing attributes with non-ascii
-        characters + html entities
+        """Ensure parser don't crash when parsing attributes with non-ascii
+        characters + html entities.
         """
         self.crawler.crawl("/utf8_and_entities")
 
