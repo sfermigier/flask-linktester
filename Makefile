@@ -1,4 +1,4 @@
-.PHONY: test check tox pep8 clean tidy doc install
+.PHONY: test check tox pep8 clean tidy doc install upload
 
 SRC=flask_linktester
 
@@ -47,3 +47,5 @@ tidy: clean
 	rm -rf .tox
 	rm -rf .travis-solo
 
+upload:
+	python setup.py sdist upload
