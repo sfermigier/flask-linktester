@@ -15,7 +15,9 @@ REQUIREMENTS = [
     'requests',
 ]
 
-TESTS_REQUIREMENTS = REQUIREMENTS + ['Flask-Testing', 'flake8', 'pylint']
+TESTS_REQUIREMENTS = REQUIREMENTS + [
+    'Flask-Testing', 'flake8', 'pylint', 'sphinx',
+]
 
 CLASSIFIERS = [
     'Development Status :: 4 - Beta', 'Environment :: Web Environment',

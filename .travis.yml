@@ -1,20 +1,24 @@
 language: python
+cache: pip
+
 python:
   - "2.7"
-  - "2.6"
+  - "3.5"
+  - "3.6"
 env:
   - FLASK=0.12
   - FLASK=0.11.1
   - FLASK=0.10.1
-  - FLASK=0.9
-  - FLASK=0.8.1
+
 install:
-  - pip install flask==$FLASK Flask-Testing flake8 sphinx
-  - pip install -e .
+  - pip install -e .[test]
+  - pip install flask==$FLASK
+
 script:
   - python setup.py test
   - cd docs; sphinx-build -W -b html -d _build/doctrees . _build/html
   - make lint
+
 notifications:
   email:
     - sf@fermigier.com
