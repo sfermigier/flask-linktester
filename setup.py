@@ -43,7 +43,6 @@ if __name__ == '__main__':
         description='Link tester for Flask applications',
         long_description=get_long_description(),
         packages=['flask_linktester'],
-        test_suite="tests.suite",
         zip_safe=False,
         platforms='any',
         install_requires=REQUIREMENTS,

@@ -16,8 +16,8 @@ install:
   - pip install flask==$FLASK
 
 script:
-  - python setup.py test
-  - cd docs; sphinx-build -W -b html -d _build/doctrees . _build/html
+  - make test
+  - make doc
   - make lint
 
 notifications:
