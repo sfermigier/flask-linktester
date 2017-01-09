@@ -3,11 +3,13 @@ python:
   - "2.7"
   - "2.6"
 env:
+  - FLASK=0.12
+  - FLASK=0.11.1
   - FLASK=0.10.1
   - FLASK=0.9
   - FLASK=0.8.1
 install:
-  - pip install flask==$FLASK Flask-Testing coverage pep8 sphinx --use-mirrors
+  - pip install flask==$FLASK Flask-Testing coverage pep8 sphinx
   - pip install -e . --use-mirrors
 script:
   - python setup.py test
